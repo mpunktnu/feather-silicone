@@ -58,7 +58,7 @@
     -----------------------------------------------------------------------*/
     #define FACTORYRESET_ENABLE     1
 
-    #define PIN                     11 //LED-listens datapinne
+    #define PIN                     11 //Styrkretsens datapinne
     #define NUMPIXELS               20 //Antal pixlar i LED-listen
 /*=========================================================================*/
 Adafruit_NeoPixel pixel = Adafruit_NeoPixel(NUMPIXELS, PIN);
@@ -227,13 +227,10 @@ void loop(void)
   }
 
 //Här är de olika fallen som styrs från kontrollpanelen i appen    
-  if (animationState == 1){ // Knapp "1" i control pad - tänd en slumpmässig "pixel" med färgen som valts i color picker
-    for(uint16_t i=0; i<pixel.numPixels(); i++) { //clear all pixels before displaying new animation
-          pixel.setPixelColor(i, pixel.Color(0,0,0));
-        }
-     flashRandom(30,random(20,30));
-     pixel.show(); // This sends the updated pixel color to the hardware.
-   }
+  if (animationState == 1){ //  Knapp "1" i control pad - neonimitation, en färg lyser
+    colorWipe(pixel.Color(red, green, blue), 20);
+    pixel.show(); // This sends the updated pixel color to the hardware.
+  }
   if (animationState == 2){ // Knapp "2" i control pad - tänd hela listen en "pixel" i taget med vald färg, släck därefter på samma sätt
     for(uint16_t i=0; i<pixel.numPixels(); i++) { //clear all pixels before displaying new animation
           pixel.setPixelColor(i, pixel.Color(0,0,0));
@@ -275,9 +272,12 @@ void loop(void)
     rainbow(20);
     pixel.show(); // This sends the updated pixel color to the hardware.
   }
-  if (animationState == 7){ // vänsterpil - neonimitation, en färg lyser
-    colorWipe(pixel.Color(red, green, blue), 20);
-    pixel.show(); // This sends the updated pixel color to the hardware.
+  if (animationState == 7){ // vänsterpil - tänd en slumpmässig "pixel" med färgen som valts i color picker
+    for(uint16_t i=0; i<pixel.numPixels(); i++) { //clear all pixels before displaying new animation
+          pixel.setPixelColor(i, pixel.Color(0,0,0));
+        }
+     flashRandom(30,random(20,30));
+     pixel.show(); // This sends the updated pixel color to the hardware.
   }
   if (animationState == 8){ // högerpil - Så kallad Larson Scanner i rött
     for(uint16_t i=0; i<pixel.numPixels(); i++) { //clear all pixels before displaying new animation
@@ -437,4 +437,3 @@ uint32_t Wheel(byte WheelPos) {
   WheelPos -= 170;
   return pixel.Color(WheelPos * 3, 255 - WheelPos * 3, 0);
 }
-
