@@ -1,5 +1,5 @@
 # Filer till projektet: 
-# Ladda ner följande filer till ditt Arduino-projekt och placera dem i en mapp som heter feather-silicone:
+# Filerna till Arduino-projekt ligger i mappen feather-silicone:
 # BluefruitConfig.h
 # feather-silicone.ino
 # packetParser.cpp
